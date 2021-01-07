@@ -1,0 +1,11 @@
+.error-indicator {
+    text-align: center;
+    color: darkgoldenrod;
+    font-size: 22px;
+    margin: 0 auto;
+}
+
+.boom {
+    display: block;
+    font-size: 48px;
+}
