@@ -1,0 +1,46 @@
+html {
+    height: 100%;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    -ms-overflow-style: scrollbar;
+    box-sizing: border-box;
+    font-size: 14px; /* Для svg */
+}
+
+* {
+    outline: none;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    /* отклчение подсветки на тач-устройствах */
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+ol[class],
+ul[class] {
+    list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+    resize: none;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.container {
+    max-width: 1600px;
+    width: 100%;
+    margin: auto;
+    padding: 0 20px;
+}
