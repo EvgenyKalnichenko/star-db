@@ -8,5 +8,5 @@ const ErrorIndicator = () => {
             <span>(but we already sent droids to fix it)</span>
         </div>
     )
-}
+};
 export default ErrorIndicator;

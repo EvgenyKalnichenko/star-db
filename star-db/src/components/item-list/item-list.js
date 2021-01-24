@@ -1,61 +1,40 @@
-import React, {Component} from 'react';
-import SwapiService from "../../services/swapi";
-import Spinner from "../spinner";
+import React from 'react';
+import PropTypes from 'prop-types'
 import './item-list.css'
 
-export default class ItemList extends Component {
+const ItemList = (props) => {
 
-    state = {
-        itemList: null
-    };
+    const {data, onItemSelected, children: renderItems} = props;
 
-    componentDidMount() {
+    const items = data.map((item) => {
 
-        const { getData } = this.props;
+        const {id} = item;
+        const label = renderItems(item);
 
-        getData()
-            .then((itemList) => {
-                this.setState({
-                    itemList
-                })
-            })
-    }
-
-    renderItems (arr) {
-        return arr.map((item) => {
-
-            const {id} = item;
-            const label = this.props.children(item);
-
-            return (
-                <li className='list-group-item'
-                    key={id}
-                    onClick={() => this.props.onItemSelected(id)}>
-                    {label}
-                </li>
-            )
-        })
-    }
-
-    render() {
-
-        const {itemList} = this.state;
-
-        if( !itemList) {
-           return (
-               <ul className="list-group">
-                   <Spinner/>
-               </ul>
-           )
-        }
-
-        const items = this.renderItems(itemList);
-
-        return(
-            <ul className="list-group">
-                {items}
-            </ul>
+        return (
+            <li className='list-group-item'
+                key={id}
+                onClick={() => onItemSelected(id)}>
+                {label}
+            </li>
         )
-    }
+    });
+
+    return (
+        <ul className="list-group">
+            {items}
+        </ul>
+    )
+};
+
+ItemList.defaultProps = {
+    onItemSelected: () => {}
+};
+
+ItemList.propTypes = {
+    onItemSelected: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object),
+    // children: PropTypes.func.isRequired
 }
 
+export default ItemList;

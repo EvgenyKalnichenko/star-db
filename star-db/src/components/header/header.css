@@ -1,13 +1,19 @@
 .header {
     display: flex;
     align-items: center;
-    padding: 0.25rem;
+    padding: 0.35rem 0.25rem;
     margin-bottom: 30px;
 }
 
 .header__logo {
     font-size: 48px;
     line-height: 48px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.header__logo:hover {
+    text-decoration: none;
 }
 
 .nav {
@@ -18,4 +24,8 @@
 .nav__item {
     margin: 0 20px;
     font-size: 18px;
+}
+
+.header .btn {
+    margin-left: auto;
 }

@@ -1,5 +1,6 @@
 export default class SwapiService {
     _apiBase = 'https://swapi.dev/api';
+    _imageBase = 'https://starwars-visualguide.com/assets/img';
 
     async getResource(url) {
         const res = await fetch(`${this._apiBase}${url}`);
@@ -13,40 +14,71 @@ export default class SwapiService {
         return await res.json();
     }
 
-     getAllPeople = async () => {
+    getPersonImage = ({id}) => {
+        return `${this._imageBase}/characters/${id}.jpg`
+    };
+
+    getStarshipsImage = ({id}) => {
+        return `${this._imageBase}/starships/${id}.jpg`
+    };
+
+    getPlanetImage = ({id}) => {
+        return `${this._imageBase}/planets/${id}.jpg`
+    };
+
+    getAllPeople = async () => {
         const  res = await this.getResource(`/people/`);
         return res.results.map(this._transformPerson);
-    }
+    };
 
     getPerson= async (id) => {
         const person = await this.getResource(`/people/${id}/`);
         return this._transformPerson(person);
-    }
+    };
 
     getAllPlanets = async () => {
         const  res = await this.getResource(`/planets/`);
         return res.results.map(this._transformPlanet);
-    }
+    };
 
     getPlanet = async (id) => {
         const planet = await this.getResource(`/planets/${id}/`);
         return this._transformPlanet(planet);
-    }
+    };
 
     getAllStarShips = async () => {
         const  res = await this.getResource(`/starships/`);
         return res.results.map(this._transformStarShips);
-    }
+    };
 
     getStarShip = async (id) => {
         const starship = await this.getResource(`/starships/${id}/`);
         return this._transformStarShips(starship);
-    }
+    };
 
     _extractId = (item) => {
         const idRegExp =/\/([0-9]*)\/$/;
         return  item.url.match(idRegExp)[1];
-    }
+    };
+
+    TestURL = async (url) => {
+        // const request = new XMLHttpRequest();
+        //
+        // request.open('HEAD', url, false);
+        // request.send();
+        // console.log('тест' + url);
+        // return request.status != 404;
+
+        const res = await fetch(`${url}`);
+
+        if(!res.ok) {
+            //описание ошибки
+            throw new Error(`could not fatch ${url}`
+                + ` received ${res.status}`)
+        }
+        console.log('тест');
+        return url;
+    };
 
     _transformPlanet = (planet) => {
         return {
@@ -56,7 +88,7 @@ export default class SwapiService {
             rotationPeriod:  planet.rotation_period,
             diameter: planet.diameter
         }
-    }
+    };
 
     _transformStarShips = (starship) => {
         return {
@@ -70,7 +102,7 @@ export default class SwapiService {
             passengers: starship.passengers,
             cargoCapacity: starship.cargo_capacity,
         }
-    }
+    };
 
     _transformPerson = (person) => {
         return {
@@ -82,9 +114,3 @@ export default class SwapiService {
         }
     }
 }
-
-const swapi = new SwapiService();
-
-// swapi.getPerson(4).then((p) => {
-//     console.log(p);
-// });

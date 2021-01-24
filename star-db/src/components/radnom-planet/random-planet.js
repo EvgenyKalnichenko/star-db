@@ -2,8 +2,17 @@ import React, {Component} from 'react';
 import SwapiService from "../../services/swapi";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
+import PropTypes from 'prop-types'
 
 export default class RandomPlanet extends Component {
+
+    static defaultProps = {
+        updateInterval: 10000
+    };
+
+    static propTypes = {
+        updateInterval: PropTypes.number
+    };
 
     swapiService = new SwapiService();
 
@@ -11,26 +20,28 @@ export default class RandomPlanet extends Component {
         planet: {},
         loading: true,
         error: false
-    }
+    };
 
     componentDidMount() {
+        const {updateInterval} = this.props;
         //компонент подключен (DOM уже на странице)
         //Используется для инициализации
         //Не используйте конструктор для кода который создает побочные эффекты
         this.updatePlanet();
-        this.interval = setInterval(this.updatePlanet, 10000);
-        console.log('componentDidMount()');
+        this.interval = setInterval(this.updatePlanet, updateInterval);
+        // console.log('componentDidMount()');
     }
 
     componentDidUpdate() {
         //компонент обновился
-        console.log('componentDidUpdate()');
+        // console.log('componentDidUpdate()');
     }
 
     componentWillUnmount() {
+        //УСТАРЕЛ И ИСПОЛЬЗОВАТЬ НЕ НУЖНО !!!!!!!!!!!!!!!!!!!!!!!!!!!
         //отрабатывает после удаления
         clearInterval(this.interval);
-        console.log('componentWillUnmount()');
+        // console.log('componentWillUnmount()');
     }
 
     componentDidCatch() {
@@ -40,7 +51,7 @@ export default class RandomPlanet extends Component {
 
     getRandomInRange(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
+    };
 
     onPlanetLoaded = (planet) => {
         this.setState({
@@ -48,7 +59,7 @@ export default class RandomPlanet extends Component {
             loading: false,
             error: false
         });
-    }
+    };
 
     onError = (err) => {
         this.setState({
@@ -64,15 +75,7 @@ export default class RandomPlanet extends Component {
             .getPlanet(id)
             .then(this.onPlanetLoaded)
             .catch(this.onError);
-    }
-
-    TestURL = (url) => {
-        const request = new XMLHttpRequest();
-
-        request.open('HEAD', url, false);
-        request.send();
-        return request.status != 404;
-    }
+    };
 
     render() {
         const { planet, loading, error } = this.state;
@@ -92,6 +95,7 @@ export default class RandomPlanet extends Component {
         )
     }
 }
+
 
 const PlanetView = ({planet}) => {
 
