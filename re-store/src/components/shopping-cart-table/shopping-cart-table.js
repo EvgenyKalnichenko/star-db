@@ -1,5 +1,6 @@
 import React from 'react'
 import './shopping-cart-table.css'
+import { DeleteToCart  } from "../../actions";
 import {connect} from "react-redux";
 
 const ShoppingCartTable = ({item, total, onIncrease, onDecrease, onDelete}) => {
@@ -69,10 +70,11 @@ const mapDispatchToProps = () => {
             console.log('Increase ' + id);
         },
         onDecrease: (id) => {
-            console.log('Decrease ' + id);
+
         },
         onDelete: (id) => {
-            console.log('Delete ' +id);
+            console.log(id);
+            DeleteToCart(id);
         }
     }
 };

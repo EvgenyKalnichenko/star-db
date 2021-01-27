@@ -33,23 +33,42 @@ const reducer = (state = initialState, action) => {
         case 'BOOK_ADDED_TO_CART':
             const bookId = action.payload;
             const book = state.books.find((book) => book.id === bookId);
-            const newItem = {
-                id: book.id,
-                title: book.title,
-                count: 1,
-                total:  book.total
-            };
-
-
             const itemIndex = state.cartItems.findIndex(({id}) => id === bookId);
-            console.log(itemIndex);
+            const item = state.cartItems[itemIndex];
+            let newItem;
+            let newArray;
+
+            if(item){
+                newItem = {
+                    ...item,
+                    count: item.count + 1,
+                    total: item.total + book.price
+                };
+
+                newArray = [...state.cartItems.slice(0, itemIndex), newItem, ...state.cartItems.slice(itemIndex + 1)];
+            }else {
+                 newItem = {
+                    id: book.id,
+                    title: book.title,
+                    count: 1,
+                    total: book.price
+                 };
+
+                 newArray = [...state.cartItems, newItem];
+            }
+
             return {
                 ...state,
-                cartItems:[
-                    ...state.cartItems,
-                    newItem
-                ]
+                cartItems: newArray
             };
+        case 'DELETE_TO_CART':
+            return {
+                ...state,
+                cartItems: []
+            };
+
+
+
 
         default:
             return state;
