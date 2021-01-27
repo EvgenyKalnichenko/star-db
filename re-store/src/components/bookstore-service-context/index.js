@@ -1,4 +1,3 @@
-import React from "react";
 import { BookstoreServiceProvider, BookstoreServiceConsumer } from './bookstore-service-context';
 
 export {

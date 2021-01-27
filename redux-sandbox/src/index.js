@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import Appc from "./components/app";
+import App from "./components/app";
 
 import reducer from "./reducer";
 
@@ -17,7 +17,7 @@ const store = createStore(reducer);
 
 store.subscribe(() => {
     console.log(store.getState());
-})
+});
 
 ReactDOM.render(
     <Provider store={store}>

@@ -1,9 +1,9 @@
 import React from "react";
 
-const CardPage = () => {
+const CartPage = () => {
     return(
         <div>Другая страница</div>
     )
 }
 
-export default CardPage;
+export default CartPage;
