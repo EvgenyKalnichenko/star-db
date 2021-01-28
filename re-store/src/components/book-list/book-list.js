@@ -9,7 +9,7 @@ import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 
 const BookList = ({books, onAddedToCart}) => {
-
+    console.log(books);
     return(
         <ul className='book-list'>
             {
@@ -30,7 +30,7 @@ class BookListContainer extends Component {
     }
 
     render() {
-        const { books, loading, error, onAddedToCart } = this.props;
+        const {books, loading, error, onAddedToCart } = this.props;
 
         if(loading){
             return <Spinner/>
@@ -44,7 +44,7 @@ class BookListContainer extends Component {
     }
 }
 
-const mapStateToProps = ({ books, loading, error }) => {
+const mapStateToProps = ({bookList: { books, loading, error }}) => {
     return { books, loading, error };
 };
 
@@ -60,7 +60,6 @@ export default compose(
     withBookstoreService(),
     connect(mapStateToProps, mapDispatchToProps)
 )(BookListContainer);
-
 
 // const mapDispatchToProps = (dispatch) => {
 //Вариант 1

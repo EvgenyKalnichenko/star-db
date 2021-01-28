@@ -32,10 +32,16 @@ const bookAddedToCart = (bookId) => {
     }
 };
 
-const DeleteToCart = (bookId) => {
-    console.log(bookId);
+const deleteToCart = (bookId) => {
     return{
         type:'DELETE_TO_CART',
+        payload: bookId
+    }
+};
+
+const deleteAllToCart = (bookId) => {
+    return{
+        type:'DELETE_ALL_TO_CART',
         payload: bookId
     }
 };
@@ -43,5 +49,6 @@ const DeleteToCart = (bookId) => {
 export {
     fetchBooks,
     bookAddedToCart,
-    DeleteToCart
+    deleteToCart,
+    deleteAllToCart
 }
