@@ -1,3 +1,23 @@
+const cartTotalPrice = (cartItems) => {
+    let count = 0;
+
+    cartItems.map((item) => {
+        count += item.total;
+    });
+
+    return count
+};
+
+const cartCountProducts = (cartItems) => {
+    let count = 0;
+
+    cartItems.map((item) => {
+        count += item.count;
+    });
+
+    return count
+};
+
 const updateCartItems = (cartItems, item, idx) => {
     if(item.count <= 0){
         return [
@@ -39,10 +59,12 @@ const updateOrder = (state, bookId, quantity) => {
     const itemIndex = cartItems.findIndex(({id}) => id === bookId);
     const item = cartItems[itemIndex];
     const newItem = updateCartItem(book, item, quantity);
+    const newCartItems = updateCartItems(cartItems, newItem, itemIndex);
 
     return {
-        orderTotal: 0,
-        cartItems: updateCartItems(cartItems, newItem, itemIndex)
+        cartItems: newCartItems,
+        cartCurrentProducts: cartCountProducts(newCartItems),
+        orderTotal: cartTotalPrice(newCartItems),
     };
 };
 
@@ -51,7 +73,8 @@ const updateShoppingCart = (state, action) => {
     if(state === undefined) {
         return {
             cartItems: [],
-            orderTotal: 0
+            orderTotal: 0,
+            cartCurrentProducts: null
         }
     }
 
